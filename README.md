@@ -6,6 +6,10 @@ The Arduino pro micro does the controller to PC interface.
 I've reversed the protocol and made my own functions to read the controller status.  
 I then used a Joystick library from MHeironimus, see below or in code for the link, which made the Arduino pro micro into a USB HID Gamepad/Joystick.  
 
+Here's a video of the finished controller, setup in Wreckfest:
+
+[![Wreckfest with Sega Saturn racing controller](https://img.youtube.com/vi/E5IDyN7Fv7s/0.jpg)](https://www.youtube.com/watch?v=E5IDyN7Fv7s)
+
 # Hardware
 
 Connections are explained in the code, but I'll make a schematic just in case.  
@@ -35,9 +39,49 @@ Feel free to ask me on twitter or discord if you have any questions.
 
 # Reverse Engineering
 
+Probing all pins coming from the Sega Saturn to see what's going on:  
 <img src="./pics/Saturn Racing Controller PCB Logic Analyzer 1.jpg">  
 
+Below is the scope signal, already rearranged to.  
 <img src="./pics/Saturn Racing Controller PCB Logic Analyzer 2.jpg">  
+
+As you can see the signal isn't that difficult.  
+At first glance you can see some sort of chip select or let's call it console select on the top most signal (bit 1).  
+This is easy to recognize as any data we see happens when bit 1 is logic low.  
+
+Then we have what looks like two clocks on bit 0 and bit 4.  
+Turns out the clock on bit 0 is actually a 'request data' from the Sega Saturn to the controller.  
+The clock on bit 4 is a 'data ready' signal from the controller to the Sega Saturn.  
+
+The next 4 signals on bit 2, 3, 6 and 7 are data.  
+When pressing buttons on the controller there are low pulses that appear on those signals.  
+
+Bit 5 is Vcc.  
+
+
+Looking more into the location of pressed buttons in relation with the 'request data' and 'data ready' signal we can see that a data request happens on both falling and rising edge.  
+This means we have 10 packets of 4 bits sent from the controller to the Saturn.  
+
+
+The controller has a few different buttons: A, B, C, X, Y, Z, START. The steering is also data sent to the Saturn.  
+Playing around with these buttons we can figure out their location in the packets:
+0. 4 bits UNKNOWN (Controller ID ?)
+1. 4 bits UNKNOWN (Controller ID ?)
+2. DOWN - UP - 2 bits UNKNOWN
+3. B - C - A - START
+4. Z - Y - X - 1 bit UNKNOWN
+5. 4 bits UNKNOWN
+6. HIGH NIBBLE COUNTER
+7. LOW NIBBLE COUNTER
+8. 4 bits UNKNOWN
+9. 4 bits UNKNOWN
+
+Packet 0 and 1 are most likely some sort of controller ID so the Saturn knows what's plugged into the port.  
+To know for sure I'd need to decode multiple Saturn controllers, but for now I don't think that's really useful so I'm not going to bother.  
+
+
+The steering wheel position is an unsigned byte going from 0 to 255, with the center being 127.  
+All other buttons just send a 0 when pressed and 1 when released.  
 
 # Dependencies
 
