@@ -12,6 +12,25 @@ Here's a video of the finished controller, setup in Wreckfest:
 
 # Hardware
 
+The Sega Saturn racing controller has a few wires for the buttons and it uses some sort of open wheel encoder to get the wheel position.  
+<img src="./pics/Saturn Racing Controller PCB 1.jpg">   
+
+<img src="./pics/Saturn Racing Controller PCB 2.jpg">  
+
+Here you can see the two IR modules for the encoder.
+<img src="./pics/Saturn Racing Controller encoder 1.jpg">   
+
+And here the actual holes of the wheel encoder.
+<img src="./pics/Saturn Racing Controller encoder 2.jpg">   
+
+As you can see there are two bands on the encoder. One that has holes going from one side to the other and then one singular hole.  
+The singular hole is used for detecting when the steering wheel is in the center.
+This also forces the steering wheel counter, sent to the Saturn, to get reset to it's center value (127).
+
+
+On the back of the PCB there's a SEGA branded chip.  
+<img src="./pics/Saturn Racing Controller unknown SEGA chip.jpg">  
+
 Connections are explained in the code, but I'll make a schematic just in case.  
 You'll need an Arduino pro micro, or compatible, for this.  
 
@@ -33,17 +52,15 @@ Feel free to ask me on twitter or discord if you have any questions.
 
 # Saturn Racing Controller
 
-<img src="./pics/Saturn Racing Controller PCB 1.jpg">  
-
-<img src="./pics/Saturn Racing Controller PCB 2.jpg">  
 
 # Reverse Engineering
 
 Probing all pins coming from the Sega Saturn to see what's going on:  
 <img src="./pics/Saturn Racing Controller PCB Logic Analyzer 1.jpg">  
 
-Below is the scope signal, already rearranged to.  
+Below is the scope signal, already rearranged to what seemed the most logical to me.  
 <img src="./pics/Saturn Racing Controller PCB Logic Analyzer 2.jpg">  
+\* I love the green color of my HP 54645D screen
 
 As you can see the signal isn't that difficult.  
 At first glance you can see some sort of chip select or let's call it console select on the top most signal (bit 1).  
