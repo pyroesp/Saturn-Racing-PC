@@ -81,7 +81,7 @@ This means we have 10 packets of 4 bits sent from the controller to the Saturn.
 
 
 The controller has a few different buttons: A, B, C, X, Y, Z, START. The steering is also data sent to the Saturn.  
-Playing around with these buttons we can figure out their location in the packets:
+Playing around with these buttons we can figure out their location in the packets:  
 0. 4 bits UNKNOWN (Controller ID ?)
 1. 4 bits UNKNOWN (Controller ID ?)
 2. DOWN - UP - 2 bits UNKNOWN
