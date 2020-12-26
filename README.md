@@ -82,16 +82,17 @@ This means we have 10 packets of 4 bits sent from the controller to the Saturn.
 
 The controller has a few different buttons: A, B, C, X, Y, Z, START. The steering is also data sent to the Saturn.  
 Playing around with these buttons we can figure out their location in the packets:  
-0. 4 bits UNKNOWN (Controller ID ?)
+
 1. 4 bits UNKNOWN (Controller ID ?)
-2. DOWN - UP - 2 bits UNKNOWN
-3. B - C - A - START
-4. Z - Y - X - 1 bit UNKNOWN
-5. 4 bits UNKNOWN
-6. HIGH NIBBLE COUNTER
-7. LOW NIBBLE COUNTER
-8. 4 bits UNKNOWN
+2. 4 bits UNKNOWN (Controller ID ?)
+3. DOWN - UP - 2 bits UNKNOWN
+4. B - C - A - START
+5. Z - Y - X - 1 bit UNKNOWN
+6. 4 bits UNKNOWN
+7. HIGH NIBBLE COUNTER
+8. LOW NIBBLE COUNTER
 9. 4 bits UNKNOWN
+10. 4 bits UNKNOWN
 
 Packet 0 and 1 are most likely some sort of controller ID so the Saturn knows what's plugged into the port.  
 To know for sure I'd need to decode multiple Saturn controllers, but for now I don't think that's really useful so I'm not going to bother.  
