@@ -50,9 +50,6 @@ The wire between the pro micro and DB9 connector is a VGA cable.
 I've tried adding some comments in the code so it's easier to understand, but all in all I think it's fairly simple.  
 Feel free to ask me on twitter or discord if you have any questions.  
 
-# Saturn Racing Controller
-
-
 # Reverse Engineering
 
 Probing all pins coming from the Sega Saturn to see what's going on:  
